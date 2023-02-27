@@ -183,15 +183,25 @@
     </li>
   </ul>
 <script>
-  let listItems = document.querySelectorAll('li');
-  let listItemsArr = Array.from(listItems);
-  let listItemsArrInnerText = listItemsArr.map(li => li.dataset.time);
 
-  function findHoursAndMin(itemArray) {
-      itemsArray.map(time => time.slice())
-  }
+const listItems = Array.from(document.querySelectorAll('[data-time'));
+const timesArr = listItems.map(li => li.dataset.time);
 
-  console.log(listItemsArrInnerText);
+function totalTime(listOfTimes) {
+  let totalSeconds = listOfTimes.reduce((accum, songTime) => {
+    let [min, sec] = songTime.split(':');
+    return accum + ((+min * 60) + +sec);
+  }, 0);
+
+  let totalMinutes = Math.floor(totalSeconds / 60)
+  let seconds = totalSeconds % 60;
+  let hours = Math.floor(totalMinutes / 60);
+  let minutes = totalMinutes % 60;
+
+  return `${hours}:${minutes}:${seconds}`;
+  };
+
+  console.log(totalTime(timesArr));
 </script>
 </body>
 </html>
